@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import *
 import tkinter as Tkinter
-from csv import DictWriter
+import csv
 import os
 from tkinter import messagebox
 
@@ -79,12 +79,12 @@ def add_student():
 
     
     with open(csv_database,'a', newline='') as f:
-        dict_writer = DictWriter(f, fieldnames=record_fields)
+        writer = csv.DictWriter(f, fieldnames=record_fields)
 
         if os.stat(csv_database).st_size==0: 
-            DictWriter.writeheader(dict_writer)
+            csv.DictWriter.writeheader(writer)
 
-        dict_writer.writerow({'ID Number':id_entry.get(),'First Name':fname_ent.get(),'Last Name':lname_ent.get(),'Middle Name':MI_ent.get()
+        writer.writerow({'ID Number':id_entry.get(),'First Name':fname_ent.get(),'Last Name':lname_ent.get(),'Middle Name':MI_ent.get()
                               ,'Gender':gender_ent.get(),'Course':course_ent.get(),'Year Level':year_ent.get()})    
     Listtable.insert(parent = '',index='end',iid=count,text="",values =(id_entry.get(),fname_ent.get(),
                     lname_ent.get(),MI_ent.get(),gender_ent.get(),course_ent.get(),year_ent.get()))
@@ -102,10 +102,24 @@ def add_student():
 
 
 def remove_selected():
+    global csv_database
     x = Listtable.selection()
     for record in x:
         Listtable.delete(record)
 
+    updated_record = []
+    
+    with open(csv_database, 'r', newline ='') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            updated_record.append(row)
+            for record in row:
+                if record == x:
+                    updated_record.delete(row)
+
+    with open(csv_database, 'w', newline = '') as f:
+        writer = csv.writer(f)
+        writer.writerows(updated_record)
 def edit():
     id_entry.delete(0,END)
     fname_ent.delete(0, END)
