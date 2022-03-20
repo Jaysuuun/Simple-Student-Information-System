@@ -100,9 +100,9 @@ def update():
                         value = input("Enter new " + field + ": ")
                         student_data.append(value)
                     update_rec.append(student_data)
-            else:
-                update_rec.append(row)
-            counter += 1
+                else:
+                  update_rec.append(row)
+                counter += 1
 
     if idx_student is not None:
         with open(csv_database, "w", encoding="utf-8", newline = '') as f:
