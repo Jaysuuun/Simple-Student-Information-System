@@ -8,13 +8,13 @@ csv_database = 'students_list.csv'
 
 def menu():
     print("========================================")
-    print("Ilimitary Skul Student Management System")
+    print("Student Information Management System")
     print("========================================")
     print("1. Add New Student")
     print("2. View Student's List")
-    print("3. Search Student")
+    print("3. Search Student by ID Number")
     print("4. Update Student Information")
-    print("5. Delete Student")
+    print("5. Remove Student")
     print("6. Quit")
     
 def create_record():
@@ -45,7 +45,7 @@ def display_list():
     global record_fields
     global csv_database
     print("======Student Records======")
-    with open(csv_database,"r",encoding="utf-8") as f:
+    with open(csv_database,"r",encoding="utf-8", newline = '') as f:
         reader = csv.reader(f)
         for k in record_fields:
             print(fixed(k,11),end = "  |")
@@ -60,8 +60,8 @@ def search():
     global record_fields
     global csv_database
     print("=" * 10 + "Search Student by ID"+"=" * 10)
-    roll = input("Enter ID number to search: ")
-    with open(csv_database, "r",encoding="utf-8") as f:
+    roll = input("Enter Student ID number to search: ")
+    with open(csv_database, "r",encoding="utf-8", newline = '') as f:
         reader = csv.reader(f)
         for row in reader:
             if len(row) > 0:
@@ -76,7 +76,7 @@ def search():
                     print("Year Level ", row[6])
                     break
         else:
-            print("ID Number not Found")
+            print("Student ID Number not Found")
     input("Press any key to continue")
 
 def update():
@@ -84,8 +84,8 @@ def update():
     global csv_database
 
     print("=========== Update Student ============")
-    roll = input("Enter ID Number to Update: ")
-    idx_student = None
+    roll = input("Enter Student ID Number to Update: ")
+    student = None
     update_rec = []
     with open(csv_database, "r", encoding ="utf-8", newline = '') as f:
         reader = csv.reader(f)
@@ -93,7 +93,7 @@ def update():
         for row in reader:
             if len(row) > 0:
                 if roll == row[0]:
-                    idx_student = counter
+                    student = counter
                     print("Student Found: ")
                     student_data = []
                     for field in record_fields:
@@ -101,15 +101,15 @@ def update():
                         student_data.append(value)
                     update_rec.append(student_data)
                 else:
-                  update_rec.append(row)
+                    update_rec.append(row)
                 counter += 1
 
-    if idx_student is not None:
+    if student is not None:
         with open(csv_database, "w", encoding="utf-8", newline = '') as f:
             writer = csv.writer(f)
             writer.writerows(update_rec)
     else:
-        print("ID Number Does Not EXIST")
+        print("Student ID Number Does Not EXIST")
 
     input("Press any key to continue")
 
@@ -118,10 +118,10 @@ def delete_student():
     global csv_database
 
     print("========= Delete Student =========")
-    roll = input("Enter ID number to delete: ")
+    roll = input("Enter Student ID number to delete: ")
     student_location = False
     update_rec = []
-    with open(csv_database, "r",encoding="utf-8") as f:
+    with open(csv_database, "r",encoding="utf-8", newline = '') as f:
         reader = csv.reader(f)
         counter = 0
         for row in reader:
@@ -132,12 +132,12 @@ def delete_student():
                 else:
                     student_location = True
     if student_location is True:
-        with open(csv_database, "w", encoding = "utf-8") as f:
+        with open(csv_database, "w", encoding = "utf-8", newline = '') as f:
             writer = csv.writer(f)
             writer.writerows(update_rec)
-        print("Student, ", roll, "Deleted")
+        print("Student has been removed from the list")
     else:
-        print("ID Number not found")
+        print("Student ID Number not found")
     input("Press any key to continue")
 
 while True:
@@ -157,25 +157,4 @@ while True:
         break
 
 
-print("Thank you, GoodBye")
-
-        
-                          
-                      
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
-    
+print("GoodBye")
