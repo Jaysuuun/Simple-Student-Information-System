@@ -29,6 +29,7 @@ frame3 = tk.Frame(disframe,bd=1,relief=tk.GROOVE)
 frame3.pack(side=tk.TOP,fill=tk.X)
 
 csv_database = 'Student(s)List.csv'
+record_fields = ['ID Number','First Name','Last Name','Middle Name','Gender','Course','Year Level']
 #===========================================================================================================================#
 frame4 = tk.Frame(disframe,bd=7,relief=tk.SUNKEN)
 frame4.pack(fill=tk.BOTH,expand=True)
@@ -73,17 +74,20 @@ Listtable.pack(fill=tk.BOTH,expand=True)
 #===========================================================================================================================#
 def add_student():
     global count
+    global record_fields
     global csv_database
-    with open(csv_database,'a', newline = '') as f:
-        dict_writer = DictWriter(f, fieldnames=['ID Number','First Name','Last Name','Middle Name','Gender','Course','Year Level'])
+
+    
+    with open(csv_database,'a', newline='') as f:
+        dict_writer = DictWriter(f, fieldnames=record_fields)
 
         if os.stat(csv_database).st_size==0: 
             DictWriter.writeheader(dict_writer)
 
-        dict_writer.writerow({'ID Number':id_entry.get(),'First Name':fname_ent.get(),'Last Name':lname_ent.get(),'Middle Name':MI_ent.get(),'Gender':gender_ent.get(),'Course':course_ent.get(),'Year Level':year_ent.get()})
-
-    
-    Listtable.insert(parent = '',index='end',iid=count,text="",values =(id_entry.get(),fname_ent.get(),lname_ent.get(),MI_ent.get(),gender_ent.get(),course_ent.get(),year_ent.get()))
+        dict_writer.writerow({'ID Number':id_entry.get(),'First Name':fname_ent.get(),'Last Name':lname_ent.get(),'Middle Name':MI_ent.get()
+                              ,'Gender':gender_ent.get(),'Course':course_ent.get(),'Year Level':year_ent.get()})    
+    Listtable.insert(parent = '',index='end',iid=count,text="",values =(id_entry.get(),fname_ent.get(),
+                    lname_ent.get(),MI_ent.get(),gender_ent.get(),course_ent.get(),year_ent.get()))
 
     count += 1
     
