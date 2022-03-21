@@ -8,16 +8,16 @@ csv_database = 'students_list.csv'
 
 def menu():
     print("========================================")
-    print("Ilimitary Skul Student Management System")
+    print("Student Information Management System")
     print("========================================")
-    print("1. Add New Student")
-    print("2. View Student's List")
-    print("3. Search Student")
-    print("4. Update Student Information")
-    print("5. Delete Student")
+    print("1. Search Student")
+    print("2. Add New Student")
+    print("3. View Student's List")
+    print("4. Delete Student")
+    print("5. Update Student Information")
     print("6. Quit")
     
-def ADD_Student():
+def add_Student():
     print("========================")
     print("Add Student Information")
     print("========================")
@@ -49,11 +49,11 @@ def display_list():
     with open(csv_database,"r",encoding="utf-8", newline = '') as f:
         reader = csv.reader(f)
         for k in record_fields:
-            print(fixed(k,11),end = "  |")
-        print('\n' + "=" * 100)
+            print(fixed(k,20),end = "  |")
+        print('\n' + "=" * 160)
         for row in reader:
             for item in row:
-                print(fixed(item,11),end = "  |")
+                print(fixed(item,20),end = "  |")
             print()
     input("Press any key to continue")
 
@@ -84,7 +84,7 @@ def search_by_IDNumber():
                 if ID_Number == row[0]:
                     print("="*45 + "Student Found" + "="*45)
                     for item in row:
-                        print(fixed(item,11),end = "  |")
+                        print(fixed(item,20),end = "  |")
                     print()
                     break
         else:
@@ -167,21 +167,21 @@ while True:
     menu()
     option = input("Select your option: ")
     if option == '1':
-        ADD_Student()
-    elif option == '2':
-        display_list()
-    elif option == '3':
         search()
+    elif option == '2':
+        add_student()
+    elif option == '3':
+        display_list()
     elif option == '4':
-        update()
-    elif option == '5':
         delete_student()
+    elif option == '5':
+        update()
     else:
         break
 
 
-print("GoodBye")
+print("Thank you!")
 
         
                           
-                      
+        
