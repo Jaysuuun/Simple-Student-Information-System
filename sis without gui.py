@@ -8,16 +8,16 @@ csv_database = 'students_list.csv'
 
 def menu():
     print("========================================")
-    print("Student Information Management System")
+    print("Ilimitary Skul Student Management System")
     print("========================================")
     print("1. Add New Student")
     print("2. View Student's List")
-    print("3. Search Student by ID Number")
+    print("3. Search Student")
     print("4. Update Student Information")
-    print("5. Remove Student")
+    print("5. Delete Student")
     print("6. Quit")
     
-def create_record():
+def ADD_Student():
     print("========================")
     print("Add Student Information")
     print("========================")
@@ -34,6 +34,7 @@ def create_record():
     print("Data saved successfully")
     input("Press any key to continue")
     return
+
 def fixed(text, length):
     if len(text)> length:
         text = text[:length]
@@ -56,43 +57,65 @@ def display_list():
             print()
     input("Press any key to continue")
 
-def search():
+def search_by_lname():
+    global record_fields
+    global csv_database
+    print("=" * 10 + "Search Student by Lastname"+"=" * 10)
+    Lastname = input("Enter Student Lastname to search: ")
+    with open(csv_database, "r",encoding="utf-8", newline = '') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            if Lastname == row[2]:
+               print(row)
+        else:
+            print("Student lastname not Found")
+    input("Press any key to continue")
+    
+
+def search_by_IDNumber():
     global record_fields
     global csv_database
     print("=" * 10 + "Search Student by ID"+"=" * 10)
-    roll = input("Enter Student ID number to search: ")
+    ID_Number = input("Enter Student ID number to search: ")
     with open(csv_database, "r",encoding="utf-8", newline = '') as f:
         reader = csv.reader(f)
         for row in reader:
             if len(row) > 0:
-                if roll == row[0]:
-                    print("========== Student Found ===========")
-                    print("ID Number: ", row[0])
-                    print("First Name: ", row[1])
-                    print("Last Name: ", row[2])
-                    print("Middle Name: ", row[3])
-                    print("Gender: ", row[4])
-                    print("Course: ", row[5])
-                    print("Year Level ", row[6])
+                if ID_Number == row[0]:
+                    print("="*45 + "Student Found" + "="*45)
+                    for item in row:
+                        print(fixed(item,11),end = "  |")
+                    print()
                     break
         else:
-            print("Student ID Number not Found")
+            print("ID Number not Found")
     input("Press any key to continue")
 
+def search():
+    print("1.Search Student by ID Number")
+    print("2.Search Student by Lastname")
+    option = input("Search Student by: ")
+
+    if option == '1':
+        search_by_IDNumber()
+    elif option == '2':
+        search_by_lname()
+    else:
+        print("Invalid Option")
 def update():
     global record_fields
     global csv_database
 
     print("=========== Update Student ============")
-    roll = input("Enter Student ID Number to Update: ")
+    ID_Number = input("Enter Student ID Number to Update: ")
     student = None
-    update_rec = []
+    updated_record = []
     with open(csv_database, "r", encoding ="utf-8", newline = '') as f:
         reader = csv.reader(f)
         counter = 0
         for row in reader:
             if len(row) > 0:
-                if roll == row[0]:
+                if ID_Number == row[0]:
                     student = counter
                     print("Student Found: ")
                     student_data = []
@@ -101,13 +124,13 @@ def update():
                         student_data.append(value)
                     update_rec.append(student_data)
                 else:
-                    update_rec.append(row)
+                    updated_record.append(row)
                 counter += 1
 
     if student is not None:
         with open(csv_database, "w", encoding="utf-8", newline = '') as f:
             writer = csv.writer(f)
-            writer.writerows(update_rec)
+            writer.writerows(updated_record)
     else:
         print("Student ID Number Does Not EXIST")
 
@@ -118,23 +141,23 @@ def delete_student():
     global csv_database
 
     print("========= Delete Student =========")
-    roll = input("Enter Student ID number to delete: ")
+    ID_Number = input("Enter Student ID number to delete: ")
     student_location = False
-    update_rec = []
+    updated_record = []
     with open(csv_database, "r",encoding="utf-8", newline = '') as f:
         reader = csv.reader(f)
         counter = 0
         for row in reader:
             if len(row) > 0:
-                if roll != row[0]:
-                      update_rec.append(row)
+                if ID_Number != row[0]:
+                      updated_record.append(row)
                       counter += 1
                 else:
                     student_location = True
     if student_location is True:
         with open(csv_database, "w", encoding = "utf-8", newline = '') as f:
             writer = csv.writer(f)
-            writer.writerows(update_rec)
+            writer.writerows(updated_record)
         print("Student has been removed from the list")
     else:
         print("Student ID Number not found")
@@ -144,7 +167,7 @@ while True:
     menu()
     option = input("Select your option: ")
     if option == '1':
-        create_record()
+        ADD_Student()
     elif option == '2':
         display_list()
     elif option == '3':
@@ -158,3 +181,7 @@ while True:
 
 
 print("GoodBye")
+
+        
+                          
+                      
