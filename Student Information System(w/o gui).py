@@ -18,9 +18,7 @@ def menu():
     print("6. Quit")
     
 def add_student():
-    print("========================")
-    print("Add Student Information")
-    print("========================")
+    print("========== Add Student Information ==========")
     global record_fields
     global csv_database
     student_data = []
@@ -45,12 +43,12 @@ def fixed(text, length):
 def display_list():
     global record_fields
     global csv_database
-    print("======Student Records======")
+    print("="*73 + "Student Records" + "="*73)
     with open(csv_database,"r",encoding="utf-8", newline = '') as f:
         reader = csv.reader(f)
         for k in record_fields:
             print(fixed(k,20),end = "  |")
-        print('\n' + "=" * 160)
+        print('\n' + "=" * 161)
         for row in reader:
             for item in row:
                 print(fixed(item,20),end = "  |")
@@ -110,7 +108,7 @@ def update():
     global record_fields
     global csv_database
 
-    print("=========== Update Student ============")
+    print("============ Update Student ============")
     ID_Number = input("Enter Student ID Number to Update: ")
     student = None
     updated_record = []
@@ -144,7 +142,7 @@ def delete_student():
     global record_fields
     global csv_database
 
-    print("========= Delete Student =========")
+    print("========== Delete Student ==========")
     ID_Number = input("Enter Student ID number to delete: ")
     student_location = False
     updated_record = []
@@ -187,5 +185,4 @@ while True:
 print("Thank you!")
 
         
-                          
-       
+     
