@@ -17,7 +17,7 @@ def menu():
     print("5. Update Student Information")
     print("6. Quit")
     
-def add_Student():
+def add_student():
     print("========================")
     print("Add Student Information")
     print("========================")
@@ -65,8 +65,12 @@ def search_by_lname():
     with open(csv_database, "r",encoding="utf-8", newline = '') as f:
         reader = csv.reader(f)
         for row in reader:
-            if Lastname == row[2]:
-               print(row)
+            if len(row) > 0:
+                if Lastname == row[2]:
+                    print("Student Found:")
+                    for item in row:
+                        print(fixed(item,20),end = "  |")
+                    print()
         else:
             print("Student lastname not Found")
     input("Press any key to continue")
@@ -82,7 +86,7 @@ def search_by_IDNumber():
         for row in reader:
             if len(row) > 0:
                 if ID_Number == row[0]:
-                    print("="*45 + "Student Found" + "="*45)
+                    print("Student Found:")
                     for item in row:
                         print(fixed(item,20),end = "  |")
                     print()
@@ -122,7 +126,7 @@ def update():
                     for field in record_fields:
                         value = input("Enter new " + field + ": ")
                         student_data.append(value)
-                    update_rec.append(student_data)
+                    updated_record.append(student_data)
                 else:
                     updated_record.append(row)
                 counter += 1
@@ -184,4 +188,4 @@ print("Thank you!")
 
         
                           
-        
+       
