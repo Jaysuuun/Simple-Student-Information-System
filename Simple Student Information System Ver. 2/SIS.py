@@ -17,7 +17,7 @@ frame1 = tk.LabelFrame(win,text="Student Data",relief=tk.RIDGE,font=("Helvetica"
 frame1.place(x=20,y=110,width=480,height=475)
 
 courseframe = tk.LabelFrame(win,text="Courses",relief=tk.RIDGE,font=("Helvetica",25,"bold italic"))
-courseframe.place(x=20,y=590,width=480,height=290)
+courseframe.place(x=20,y=619,width=480,height=195)
 
 disframe = tk.Frame(win,bd=1,relief=tk.GROOVE)
 disframe.place(x=530,y=80,width=860,height=500)
@@ -33,7 +33,7 @@ frame2 = tk.Frame(win,bd=1,relief=tk.GROOVE)
 frame2.place(x=23,y=550,width=475,height=32)
 
 cframe2 = tk.Frame(win,bd=1,relief=tk.GROOVE)
-cframe2.place(x=22,y=750,width=470,height=32)
+cframe2.place(x=22,y=780,width=470,height=32)
 
 
 frame3 = tk.Frame(disframe,bd=1,relief=tk.GROOVE)
