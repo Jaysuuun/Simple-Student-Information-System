@@ -29,12 +29,15 @@ frame3.pack(side=tk.TOP,fill=tk.X)
 
 #=========================================================================================================#
 def add_student():
-
-    con = pymysql.connect(host="localhost",user="root",password="",database="ssis")
-    curs = con.cursor()
-    curs.execute("INSERT INTO data VALUES(%s,%s,%s,%s,%s,%s,%s)",(id_entry.get(),fname_ent.get(),MI_ent.get(),lname_ent.get(),gender_ent.get(),year_ent.get(), course_ent.get()))
-    con.commit()
-    con.close()
+    try:
+        con = pymysql.connect(host="localhost",user="root",password="",database="ssis")
+        curs = con.cursor()
+        curs.execute("INSERT INTO data VALUES(%s,%s,%s,%s,%s,%s,%s)",(id_entry.get(),fname_ent.get(),MI_ent.get(),lname_ent.get(),gender_ent.get(),year_ent.get(), course_ent.get()))
+        con.commit()
+    except:
+        messagebox.showerror("DUPLICATE","TRY A DIFFERENT ID")
+    finally:
+        con.close()
     fetch_data()
     clear()
 
