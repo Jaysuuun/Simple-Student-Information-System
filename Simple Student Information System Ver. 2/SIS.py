@@ -93,7 +93,7 @@ def correct_inpt(inpt):
 def fetch_data():
     con = pymysql.connect(host = "localhost",user="root",password = "",database = "ssis")
     curs = con.cursor()
-    curs.execute("SELECT d.STUDENTID,d.FIRSTNAME,d.MIDDLENAME,d.LASTNAME,d.GENDER,d.YEARLEVEL,d.COURSEID,c.Course FROM data as d INNER JOIN courses as c ON d.COURSEID = c.COURSEID")
+    curs.execute("SELECT d.STUDENTID,d.FIRSTNAME,d.MIDDLENAME,d.LASTNAME,d.GENDER,d.YEARLEVEL,d.COURSEID,c.Course FROM data as d INNER JOIN courses as c ON d.COURSEID = c.COURSEID ORDER BY d. STUDENTID ")
     rows = curs.fetchall()
     if len(rows)!=0:
         Listtable.delete(*Listtable.get_children())
@@ -108,10 +108,10 @@ def searchfun():
     selected = searchcat.get()
 
     if selected == "Last name":
-        curs.execute("SELECT d.STUDENTID,d.FIRSTNAME,d.MIDDLENAME,d.LASTNAME,d.GENDER,d.YEARLEVEL,d.COURSEID,c.Course FROM data as d, courses as c WHERE d.COURSEID = c.COURSEID AND LASTNAME like %s", (searchbar.get()))
+        curs.execute("SELECT d.STUDENTID,d.FIRSTNAME,d.MIDDLENAME,d.LASTNAME,d.GENDER,d.YEARLEVEL,d.COURSEID,c.Course FROM data as d, courses as c WHERE d.COURSEID = c.COURSEID AND LASTNAME like %s ORDER BY d. STUDENTID", (searchbar.get()))
         rows = curs.fetchall()
     if selected == "ID Number":
-        curs.execute("SELECT d.STUDENTID,d.FIRSTNAME,d.MIDDLENAME,d.LASTNAME,d.GENDER,d.YEARLEVEL,d.COURSEID,c.Course FROM data as d, courses as c WHERE d.COURSEID = c.COURSEID AND STUDENTID like %s", (searchbar.get()))
+        curs.execute("SELECT d.STUDENTID,d.FIRSTNAME,d.MIDDLENAME,d.LASTNAME,d.GENDER,d.YEARLEVEL,d.COURSEID,c.Course FROM data as d, courses as c WHERE d.COURSEID = c.COURSEID AND STUDENTID like %s ORDER BY d. STUDENTID", (searchbar.get()))
         rows = curs.fetchall()
 
     if len(rows)!=0:
