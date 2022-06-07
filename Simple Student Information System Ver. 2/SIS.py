@@ -34,6 +34,7 @@ def add_student():
         curs = con.cursor()
         curs.execute("INSERT INTO data VALUES(%s,%s,%s,%s,%s,%s,%s)",(id_entry.get(),fname_ent.get(),MI_ent.get(),lname_ent.get(),gender_ent.get(),year_ent.get(), course_ent.get()))
         con.commit()
+        messagebox.showinfo("Information","New Student Added")
     except:
         messagebox.showerror("DUPLICATE","TRY A DIFFERENT ID")
     finally:
@@ -57,6 +58,7 @@ def remove_selected():
     curs = con.cursor()
     curs.execute("DELETE from data WHERE STUDENTID=%s", (id_entry.get()))
     con.commit()
+    messagebox.showinfo("Information","Student Removed")
     con.close()
     fetch_data()
     clear()
@@ -81,6 +83,7 @@ def save():
     curs = con.cursor()
     curs.execute("update data set FIRSTNAME=%s,MIDDLENAME=%s,LASTNAME=%s,GENDER=%s,YEARLEVEL=%s,COURSEID = %s where STUDENTID=%s",(fname_ent.get(),MI_ent.get(),lname_ent.get(),gender_ent.get(),year_ent.get(),course_ent.get(),id_entry.get()))
     con.commit()
+    messagebox.showinfo("Information","Changes Saved")
     con.close()
     fetch_data()
     clear()
