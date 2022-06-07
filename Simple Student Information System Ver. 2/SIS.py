@@ -67,7 +67,7 @@ def add_course():
         con.close()
     fetch_course_data()
     clearcourse()
-
+   
 def clear():
     id_entry.delete(0,END)
     fname_ent.delete(0, END)
@@ -211,8 +211,8 @@ def cbx():
     cbb = []
     for row in curs.fetchall():
         cbb.append(row[0])
-        curs.fetchall()
     return cbb
+
 #===========================================================================================================#
 
 IDNUMBER = tk.StringVar()
@@ -260,9 +260,10 @@ year_ent.grid(row=6,column=1,padx=0,pady=5)
 COURSE = tk.StringVar()
 course = tk.Label(frame1,text="Course ID",font=('Helvetica',20,"bold"))
 course.grid(row=7,column=0,padx=0,pady=5,sticky= W)
-course_ent = ttk.Combobox(frame1,font=("Helvetica",15),width=24, state = "readonly",textvariable = COURSE)
+course_ent = ttk.Combobox(frame1,font=("Helvetica",15),width=24, state = "readonly",textvariable = COURSE, postcommand=lambda: course_ent.configure(values = cbx()))
 course_ent['values'] = cbx()
 course_ent.grid(row=7,column=1,padx=0,pady=5)
+
 
 NEWCOURSE = tk.StringVar()
 courseid = tk.Label(courseframe,text="New Course ID",font=('Helvetica',15,"bold"))
