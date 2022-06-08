@@ -1,0 +1,90 @@
+import tkinter as tk
+from tkinter import ttk
+from tkinter import *
+
+win = tk.Tk()
+win.geometry("1400x900+0+0")
+win.title("Personal CHU CHU")
+win.resizable(False, False)
+Mtab = ttk.Notebook(win)
+title_head = tk.Label(win,text="Personal Movie Collection",fg=("white"),font=("Helvetica",40,"bold"),relief=tk.GROOVE,bg="Black")
+title_head.pack(side=tk.TOP,fill=tk.X)
+
+mainf = tk.LabelFrame(Mtab,text="Movie List",relief=tk.RIDGE,font=("Helvetica",30,"bold italic"))
+mainf.place(x=20,y=90,width=1350,height=777)
+
+tf = tk.Frame(mainf,bd=1,relief=tk.GROOVE)
+tf.place(x=0,y=40,width=1380,height=680)
+aframe = tk.Frame(Mtab)
+dframe =tk.Frame(Mtab)
+disframe = tk.LabelFrame(tf,bd=7,relief=tk.SUNKEN)
+disframe.pack(fill=tk.BOTH,expand=True)
+
+
+Mtab.add(mainf,text="Movies")
+Mtab.add(aframe,text="Actors")
+Mtab.add(dframe,text = "Directos")
+buttframe = tk.Frame(win,bd=1,relief=tk.GROOVE)
+buttframe.place(x=1290,y=860,width=104,height=32)
+Mtab.pack(expand=1,fill="both")
+#==============================================================================================================================#
+
+def open():
+    top = Toplevel()
+    top.title('Movie Details')
+    top.geometry("500x500+0+0")
+    top.resizable(False, False)
+    title = tk.Label(top,text="Movie Title: ",font=('Helvetica',12,"bold"))
+    title.grid(row=0,column=0,padx=0,pady=5,sticky= W)
+    actor = tk.Label(top,text="Starring:" ,font=('Helvetica',12,"bold"))
+    actor.grid(row=1,column=0,padx=0,pady=5,sticky= W)
+    director = tk.Label(top,text="Directed by: ",font=('Helvetica',12,"bold"))
+    director.grid(row=2,column=0,padx=0,pady=5,sticky= W)
+    year = tk.Label(top,text="Year Released: ",font=('Helvetica',12,"bold"))
+    year.grid(row=3,column=0,padx=0,pady=5,sticky= W)
+    Description = tk.Label(top,text="Movie Description: ",font=('Helvetica',12,"bold"))
+    desc = tk.Text(top,height=20,width=40,wrap=WORD)
+    desc.grid(row=4,column=1,padx=0,pady=5,sticky= W)
+    Description.grid(row=4,column=0,padx=0,pady=5,sticky= N)
+#==============================================================================================================================#
+gencom = ttk.Combobox(mainf,font=("Helvetica",12),width=15, state="readonly")
+gencom.grid(row=0,column=0,sticky= W)
+gencom['values']=("177013","Action","Drama","Horror","Comedy")
+Cercom = ttk.Combobox(mainf,font=("Helvetica",12),width=15, state="readonly")
+Cercom.grid(row=0,column=1,sticky= W)
+Cercom['values']=("PG","PG13","SPG","NSFW","SFW")
+
+rate = tk.Label(mainf,text="IMBD Rating",font=('Helvetica',12,"bold"))
+rate.grid(row=0,column=2,padx=0,pady=5,sticky= W)
+ratcom = ttk.Combobox(mainf,font=("Helvetica",15),width=10, state="readonly")
+ratcom.grid(row=0,column=3,sticky= W)
+ratcom['values']=("1","2","3","4","5")
+
+dtails= tk.Button(buttframe,text="More Details",bd=1,font=("Helvetica",12),relief=tk.RAISED,command=open)
+dtails.grid(row=0,column=0,padx=0,pady=0)
+#==============================================================================================================================#
+vscroll = tk.Scrollbar(disframe,orient=tk.VERTICAL)
+hscroll = tk.Scrollbar(disframe,orient=tk.HORIZONTAL)
+Lmovie = ttk.Treeview(disframe,columns=("MOVIE ID","TITLE","YEAR","CERTIFICATE","RATING","RUNTIME","GROSS"),yscrollcommand=vscroll.set,xscrollcommand=hscroll.set)
+vscroll.config(command=Lmovie.yview)
+hscroll.config(command=Lmovie.xview)
+vscroll.pack(side=tk.RIGHT,fill=tk.Y)
+hscroll.pack(side=tk.BOTTOM,fill=tk.X)
+Lmovie.heading("MOVIE ID",text="MOVIE ID")
+Lmovie.heading("TITLE",text="TITLE")
+Lmovie.heading("YEAR",text="YEAR")
+Lmovie.heading("CERTIFICATE",text="CERTIFICATE")
+Lmovie.heading("RATING",text="RATING")
+Lmovie.heading("RUNTIME",text="RUNTIME")
+Lmovie.heading("GROSS",text="GROSS EARNING")
+Lmovie['show'] = 'headings'
+Lmovie.column("MOVIE ID",width=200)
+Lmovie.column("TITLE",width=200)
+Lmovie.column("YEAR",width=200)
+Lmovie.column("CERTIFICATE",width=200)
+Lmovie.column("RATING",width=200)
+Lmovie.column("RUNTIME",width=200)
+Lmovie.column("GROSS",width=200)
+Lmovie.pack(fill=tk.BOTH,expand=True)
+#==============================================================================================================================#
+win.mainloop()
